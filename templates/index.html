@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+<title>Gerenciador de tarefas</title>
+
+{% endblock %}
+
+{% block body %}
+
+<header>
+    <h1>Gerenciador de tarefas</h1>
+</header>
+<main>
+    <div class="container">
+        {% if tasks|length < 1 %}
+        <p>Não há nenhuma tarefa aqui. Crie sua primeira tarefa!</p>
+        {% else %}
+
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>Tarefa</th>
+                    <th>Adcionada</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for task in tasks %}
+                    <tr>
+                        <td>{{ task.content }}</td>
+                        <td class="center-text">{{ task.date_created.date() }}</td>
+                        <td class="center-text">
+                            <a href="/delete/{{task.id}}">Delete</a>
+                            <br>
+                            <a href="/update/{{task.id}}">Update</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+
+        <form action="/" method="POST">
+            <input type="text" name="content" id="content">
+            <input class="input-button" type="submit" value="Adcionar">
+        </form>
+    </div>
+</main>
+<footer>
+    <p>Desenvolvido por <a href="https://github.com/ezequielhenrique" target="_blank"><i class='bx bxl-github'></i>ezequielhenrique</a> - 2023</p>
+</footer>
+
+{% endblock %}
